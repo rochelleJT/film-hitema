@@ -1,0 +1,5 @@
+To connect using the mongo shell:
+mongo ds113923.mlab.com:13923/films-hitema -u <dbuser> -p <dbpassword>
+To connect using a driver via the standard MongoDB URI (what's this?):
+
+mongodb://<dbuser>:<dbpassword>@ds113923.mlab.com:13923/films-hitema
