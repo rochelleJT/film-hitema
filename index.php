@@ -117,7 +117,7 @@ a {
 			.$document['Director']
 			."</td><td><a href='film_update.php?id=".implode(" ",$document['_id'])
 			."'>Modifier</a> | <a href='film_delete.php?id=".implode(" ",$document['_id'])
-			."' onClick='return confirm('Are you sure you want to delete?')'>Supprimer</a></td></td>"
+			."' onClick=\"return confirm('Etes vous sûr de vouloir supprimer ce film?')\">Supprimer</a></td>"
 			."</td>";
 		echo "</tr>";
 	}

@@ -80,45 +80,45 @@ $result = $mongo->executeBulkWrite('films-hitema.films', $bulk);
 	    $acteurs   = $document['Actor'];
 	    $actrices  = $document['Actress'];
 	    $directeur = $document['Director'];
-
-	    echo "
-	    	<a href='index.php'>Accueil</a>
-	    	<br/><br/>
-	    
-		    <form name='form1' method='get' action='film_update.php'>
-		        <table border='0'>
-		            <tr> 
-		                <td>Année</td>
-		                <td><input type='text' name='annee' value=".$annee."></td>
-		            </tr>
-		            <tr> 
-		                <td>Titre</td>
-		                <td><input type='text' name='titre' value=".$titre."></td>
-		            </tr>
-		            <tr> 
-		                <td>Genre</td>
-		                <td><input type='text' name='genre' value=".$genre."></td>
-		            </tr>
-		            <tr> 
-		                <td>Acteurs</td>
-		                <td><input type='text' name='acteurs' value=".$acteurs."></td>
-		            </tr>
-		            <tr> 
-		                <td>Actrices</td>
-		                <td><input type='text' name='actrices' value=".$actrices."></td>
-		            </tr>
-		            <tr> 
-		                <td>Directeur</td>
-		                <td><input type='text' name='directeur' value=".$directeur."></td>
-		            </tr>
-
-		            <tr>
-		                <td><input type='hidden' name='id' value=".$id."></td>
-		                <td><input type='submit' name='modifier' value='MODIFIER'></td>
-		            </tr>
-		        </table>
-		    </form>";
 	}
 ?>
+	    
+<a href='index.php'>Accueil</a>
+<br/><br/>
+
+<form name='form1' method='get' action='film_update.php'>
+    <table border='0'>
+        <tr> 
+            <td>Année</td>
+            <td><input type='text' name='annee' value='<?php echo "$annee";?>'></td>
+        </tr>
+        <tr> 
+            <td>Titre</td>
+            <td><input type='text' name='titre' value='<?php echo "$titre";?>'</td>
+        </tr>
+        <tr> 
+            <td>Genre</td>
+            <td><input type='text' name='genre' value='<?php echo "$genre";?>'></td>
+        </tr>
+        <tr> 
+            <td>Acteurs</td>
+            <td><input type='text' name='acteurs' value='<?php echo "$acteurs";?>'></td>
+        </tr>
+        <tr> 
+            <td>Actrices</td>
+            <td><input type='text' name='actrices' value='<?php echo "$actrices";?>'></td>
+        </tr>
+        <tr> 
+            <td>Directeur</td>
+            <td><input type='text' name='directeur' value='<?php echo "$directeur";?>'></td>
+        </tr>
+
+        <tr>
+            <td><input type='hidden' name='id' value='<?php echo "$id";?>'></td>
+            <td><input type='submit' name='modifier' value='MODIFIER'></td>
+        </tr>
+    </table>
+</form>
+	
 </body>
 </html>
