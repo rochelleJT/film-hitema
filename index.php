@@ -26,7 +26,8 @@ tr:nth-child(even) {
 	
 	$filter = [];
 	$title='';
-	$year=0;
+	$year_min='';
+	$year_max='';
 	$subject='';
 	$actor='';
 	$actress='';
@@ -34,16 +35,29 @@ tr:nth-child(even) {
 	
 	if(isset($_GET['SubmitButton'])){
 		$title = $_GET['title'];
-		$year = $_GET['year'];
+		$year_min = $_GET['yearMin'];
+		$year_max = $_GET['yearMax'];
 		$subject = $_GET['subject'];
 		$actor = $_GET['actor'];
 		$actress = $_GET['actress'];
 		$director = $_GET['director'];
 	}
 	
+	if(isset($_GET['EraseButton'])){
+		$title='';
+		$year_min='';
+		$year_max='';
+		$subject='';
+		$actor='';
+		$actress='';
+		$director='';
+	}
+	
+	if($year_min!=null && $year_max!=null) $filter = ['Year'=>['$gte'=>(int)$year_min, '$lte'=>(int)$year_max]];
+	elseif ($year_min!=null && $year_max==null) $filter = ['Year'=>['$gte'=>(int)$year_min]];
+	elseif ($year_min==null && $year_max!=null) $filter = ['Year'=>['$lte'=>(int)$year_max]];
 	if ($title!=null) $filter ['Title'] = new MongoDB\BSON\Regex(trim($title, '/'), 'i');
-	if ($year!=0) $filter['Year'] = (int)$year;
-	if ($subject!=null && $subject!='Genre') $filter['Subject'] = $subject;
+	if ($subject!=null && $subject!='Genre...') $filter['Subject'] = $subject;
 	if ($actor!=null) $filter['Actor'] = new MongoDB\BSON\Regex(trim($actor, '/'), 'i');
 	if ($actress!=null) $filter['Actress'] = new MongoDB\BSON\Regex(trim($actress, '/'), 'i');
 	if ($director!=null) $filter['Director'] = new MongoDB\BSON\Regex(trim($director, '/'), 'i');
@@ -61,18 +75,22 @@ tr:nth-child(even) {
 	$subjects = current($cursor2->toArray())->values;
 	
 	echo "<form name='search' action='' method='get'>
-		<input type='text' name='title' id='title' placeholder='Titre...'>
-		<input type='number' name='year' id='year' placeholder='Année...'>
-		<select name='subject'>
-			<option>Genre</option>";
+		<input type='text' name='title' id='title' placeholder='Titre...' value='".$title."'>
+		<input type='number' name='yearMin' id='yearMin' placeholder='Année min...'value='".$year_min."'>
+		<input type='number' name='yearMax' id='yearMax' placeholder='Année max...'value='".$year_max."'>
+		<select name='subject' value='".$subject."'>
+			<option>Genre...</option>";
 		foreach ($subjects as $sub){
-			echo "<option value=".$sub.">".$sub."</option>";
+			if ($sub != null) echo "<option value=".$sub.">".$sub."</option>";
 		}
 	echo "</select>
-		<input type='text' name='actor' id='actor' placeholder='Acteur...'>
-		<input type='text' name='actress' id='actress' placeholder='Actrice...'>
-		<input type='text' name='director' id='director' placeholder='Directeur...'>
+		<input type='text' name='actor' id='actor' placeholder='Acteur...' value='".$actor."'>
+		<input type='text' name='actress' id='actress' placeholder='Actrice...' value='".$actress."'>
+		<input type='text' name='director' id='director' placeholder='Directeur...' value='".$director."'>
 		<input type='submit' name='SubmitButton'/>
+		</form>";
+	echo "<form name='search' action='' method='get'>
+		<input type='submit' value='Effacer les filtres' name='EraseButton'/>
 		</form>";
 	
 	echo "<br><br><table><tr><th>Année</th><th>Titre</th><th>Genre</th><th>Acteurs</th><th>Actrices</th><th>Directeur</th></tr>";
