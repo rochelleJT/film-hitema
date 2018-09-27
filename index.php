@@ -9,12 +9,16 @@ table {
 
 td, th {
     border: 1px solid #dddddd;
-    text-align: left;
+    text-align: center;
     padding: 8px;
 }
 
 tr:nth-child(even) {
     background-color: #dddddd;
+}
+
+a {
+	color: #000000;
 }
 </style>
 </head>
@@ -93,11 +97,28 @@ tr:nth-child(even) {
 		<input type='submit' value='Effacer les filtres' name='EraseButton'/>
 		</form>";
 	
-	echo "<br><br><table><tr><th>Année</th><th>Titre</th><th>Genre</th><th>Acteurs</th><th>Actrices</th><th>Directeur</th></tr>";
+	echo "<br><br><table><tr><th>Année</th><th>Titre</th><th>Genre</th><th>Acteurs</th><th>Actrices</th><th>Directeur</th><th>Update</th></tr>";
 	foreach ($cursor as $document) {
 		$document = json_decode(json_encode($document),true);
 		echo "<tr>";
-		echo "<td>" . $document['Year']. "</td><td><a href='film_detail.php?_id=".implode(" ",$document['_id'])."'>" . $document['Title']. "</a></td><td>". $document['Subject']. "</td><td>". $document['Actor']. "</td><td>". $document['Actress']. "</td><td>". $document['Director']. "</td>";
+		echo "<td>"
+			.$document['Year']
+			."</td><td><a href='film_detail.php?_id="
+			.implode(" ",$document['_id'])
+			."'>"
+			.$document['Title']
+			."</a></td><td>"
+			.$document['Subject']
+			."</td><td>"
+			.$document['Actor']
+			."</td><td>"
+			.$document['Actress']
+			."</td><td>"
+			.$document['Director']
+			."</td><td><a href='film_update.php?id=".implode(" ",$document['_id'])
+			."'>Modifier</a> | <a href='film_delete.php?id=".implode(" ",$document['_id'])
+			."' onClick='return confirm('Are you sure you want to delete?')'>Supprimer</a></td></td>"
+			."</td>";
 		echo "</tr>";
 	}
 	echo "</table>";
