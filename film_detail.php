@@ -53,7 +53,6 @@ h1 {
 		echo "<tr><th>Director</th><td>"   . $document['Director']. "</td></tr>";
 		echo "<tr><th>Popularité</th><td>" . $document['Popularity']. "</td></tr>";
 		echo "<tr><th>Award</th><td>"	   . $document['Awards']. "</td></tr>";
-		echo "<tr><th>Image</th><td>" 	   . $document['*Image']. "</td></tr>";
 		echo "</table>";
 	}
 	

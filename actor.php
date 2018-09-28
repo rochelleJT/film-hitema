@@ -39,6 +39,7 @@ h1 {
 	]);
 	$cursor_actor = $mongo->executeCommand('films-hitema',  $cmd_actor);
 	
+	echo "<h3><a href='index.php'>Accueil</a></h3>";
 	echo "<table><tr><th>Acteur/Actrice</th><th>Nombre de films</th></tr>";
 	foreach ($cursor_actor as $document) {
 		$document = json_decode(json_encode($document),true);
