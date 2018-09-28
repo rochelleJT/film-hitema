@@ -9,52 +9,94 @@
     $pwd = 'Azerty01';
     $mongo = new MongoDB\Driver\Manager("mongodb://${user}:${pwd}@ds113923.mlab.com:13923/films-hitema");
  
-if(isset($_GET['Submit'])) {    
-    $data = array (
-        'Year'       => $_GET['Year'],
-        'Title'      => $_GET['Title'],
-        'Subject'    => $_GET['Subject'],
-        'Actor'      => $_GET['Actor'],
-        'Actress'    => $_GET['Actress'],
-        'Director'   => $_GET['Director'],
-        'Popularity' => $_GET['Popularity'],
-        'Awards'     => $_GET['Awards'],
-        'Image'      => $_GET['Image']
-    );
-$bulk = new MongoDB\Driver\BulkWrite;
+    if(isset($_GET['ajouter'])) {    
+        $film = array (
+            'Year'       => $_GET['Year'],
+            'Title'      => $_GET['Title'],
+            'Length'     => $_GET['Length'],
+            'Subject'    => $_GET['Subject'],
+            'Actor'      => $_GET['Actor'],
+            'Actress'    => $_GET['Actress'],
+            'Director'   => $_GET['Director'],
+            'Popularity' => $_GET['Popularity'],
+            'Awards'     => $_GET['Award'],
+            'Image'      => $_GET['Image']
+        );
 
-$film_1 = [
-    'Year'          => $_GET['Year'],
-    'Title'         => $_GET['Title'],
-    'Subject'       => $_GET['Subject'],
-    'Actor'         => $_GET['Actor'],
-    'Actress'       => $_GET['Actress'],
-    'Director'      => $_GET['Director'],
-    'Popularity'    => $_GET['Popularity'],
-    'Awards'        => $_GET['Awards'],
-    'Image'         => $_GET['Image'],
+        $bulk = new MongoDB\Driver\BulkWrite;
 
-];
-$film_2 = ['' => 'custom ID', 'title' => 'two'
-];
-$film_3 = ['_id' => new MongoDB\BSON\ObjectId, 'title' => 'three'];
+        $filmToAddData = [
+            '_id'           => new MongoDB\BSON\ObjectId(),
+            'Year'          => $film['Year'],
+            'Title'         => $film['Title'],
+            'Length'        => $film['Length'],
+            'Subject'       => $film['Subject'],
+            'Actor'         => $film['Actor'],
+            'Actress'       => $film['Actress'],
+            'Director'      => $film['Director'],
+            'Popularity'    => $film['Popularity'],
+            'Awards'        => $film['Awards'],
+            'Image'         => $film['Image'],
 
-$_id1 = $bulk->insert($film1);
-$_id2 = $bulk->insert($film2);
-$_id3 = $bulk->insert($film3);
+        ];
 
-var_dump($_id1, $_id2, $_id3);
-$result = $manager->executeBulkWrite('db.collection', $bulk);
+        $bulk->insert($filmToAddData);
 
-
-        //display success message
-        echo "<font color='green'>Data added successfully.";
-        echo "<br/><a href='index.php'>View Result</a>";
-}
-
-echo "<br/><a href='index.php'>View Result</a>";
-
-
+        $result = $mongo->executeBulkWrite('films-hitema.films', $bulk);
+        header("Location:index.php");
+    }
 ?>
+
+<a href="index.php">Accueil</a>
+    <br/><br/>
+ 
+    <form action="add.php" method="get" name="form2">
+        <table width="25%" border="0">
+            <tr> 
+                <td>Année</td>
+                <td><input type="number" name="Year" required=""></td>
+            </tr>
+            <tr> 
+                <td>Titre</td>
+                <td><input type="text" name="Title" required=""></td>
+            </tr>
+            <tr> 
+                <td>Durée</td>
+                <td><input type="number" name="Length" required=""></td>
+            </tr>
+            <tr> 
+                <td>Genre</td>
+                <td><input type="text" name="Subject" required=""></td>
+            </tr>
+            <tr> 
+                <td>Acteur</td>
+                <td><input type="text" name="Actor" required=""></td>
+            </tr>
+            <tr> 
+                <td>Actrice</td>
+                <td><input type="text" name="Actress" required=""></td>
+            </tr>
+            <tr> 
+                <td>Directeur</td>
+                <td><input type="text" name="Director" required=""></td>
+            </tr>
+            <tr> 
+                <td>Popularité</td>
+                <td><input type="text" name="Popularity" required=""></td>
+            </tr>
+            <tr> 
+                <td>Award</td>
+                <td><input type="text" name="Award" required=""></td>
+            </tr>
+            <tr> 
+                <td>Image</td>
+                <td><input type="File" name="Image"></td>
+            </tr>
+            <tr> 
+                <td></td>
+                <td><input type="submit" name="ajouter" value="Ajouter" required=""></td>
+            </tr>
+        </table>
+    </form>
 </body>
 </html>
