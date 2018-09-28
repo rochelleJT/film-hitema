@@ -51,7 +51,7 @@
     <br/><br/>
  
     <form action="add.php" method="get" name="form2">
-        <table width="25%" border="0">
+        <table border="0">
             <tr> 
                 <td>Année</td>
                 <td><input type="number" name="Year" required=""></td>
