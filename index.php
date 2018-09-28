@@ -96,7 +96,6 @@ a {
 	echo "<form name='search' action='' method='get'>
 		<input type='submit' value='Effacer les filtres' name='EraseButton'/>
 		</form>";
-	
 	echo "<br><br><table><tr><th>Année</th><th>Titre</th><th>Genre</th><th>Acteurs</th><th>Actrices</th><th>Directeur</th><th>Update</th></tr>";
 	foreach ($cursor as $document) {
 		$document = json_decode(json_encode($document),true);
