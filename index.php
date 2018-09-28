@@ -78,6 +78,7 @@ a {
 	$cursor2 = $mongo->executeCommand('films-hitema', $cmd);
 	$subjects = current($cursor2->toArray())->values;
 	
+	echo "<h3><a href='actor.php'>Acteurs</a></h3>";
 	echo "<form name='search' action='' method='get'>
 		<input type='text' name='title' id='title' placeholder='Titre...' value='".$title."'>
 		<input type='number' name='yearMin' id='yearMin' placeholder='Année min...'value='".$year_min."'>
